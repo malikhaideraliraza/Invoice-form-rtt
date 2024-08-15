@@ -86,27 +86,33 @@ const InvoiceForm: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Invoice</h1>
-          <p className="text-sm text-gray-500">Create a new invoice below</p>
+          <h1 className="text-3xl font-bold">New Invoice</h1>
+          <p className="text-sm text-gray-500">
+            Create new invoice for your customers
+          </p>
         </div>
         <div className="space-x-2">
-          <button type="submit" className="btn btn-primary">
-            Save
-          </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary !bg-white !text-black border border-gray-300 !rounded-lg"
             onClick={() => reset()}
           >
             Reset
+          </button>
+
+          <button
+            type="submit"
+            className="btn btn-primary !bg-[#7F56D9] !text-white !rounded-lg"
+          >
+            Save
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Form Section */}
-        <div className="space-y-6">
-          <div className="card">
+        <div className="p-6 bg-white rounded-3xl border border-gray-300">
+          <div className="p-6 bg-white">
             <h2 className="text-xl font-semibold mb-4">Bill From</h2>
 
             {/* Company Name and Email in the same row */}
@@ -148,7 +154,7 @@ const InvoiceForm: React.FC = () => {
                     "billingFromAttributes.billingFromAddressAttributes.country",
                     { required: true }
                   )}
-                  className="input w-full"
+                  className="input w-full h-10"
                 >
                   <option value="">Select Country</option>
                   <option value="US">United States</option>
@@ -169,20 +175,21 @@ const InvoiceForm: React.FC = () => {
                 />
               </div>
               <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Postal Code
-                </label>
-                <input
-                  {...register(
-                    "billingFromAttributes.billingFromAddressAttributes.postalCode",
-                    {
-                      required: true,
-                    }
-                  )}
-                  placeholder="Postal Code"
-                  className="input w-full"
-                />
-              </div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Postal Code
+  </label>
+  <input
+    {...register(
+      "billingFromAttributes.billingFromAddressAttributes.postalCode",
+      {
+        required: true,
+      }
+    )}
+    placeholder="Postal Code"
+    className="input w-full !rounded-lg"
+  />
+</div>
+
             </div>
             <div className="mt-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -201,7 +208,7 @@ const InvoiceForm: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="p-6 bg-white">
             <h2 className="text-xl font-semibold mb-4">Bill To</h2>
 
             {/* Client Name and Email in the same row */}
@@ -243,7 +250,7 @@ const InvoiceForm: React.FC = () => {
                     "billingToAttributes.billingToAddressAttributes.country",
                     { required: true }
                   )}
-                  className="input w-full"
+                  className="input w-full h-10"
                 >
                   <option value="">Select Country</option>
                   <option value="US">United States</option>
@@ -293,7 +300,11 @@ const InvoiceForm: React.FC = () => {
                   control={control}
                   defaultValue={new Date().toISOString().substring(0, 10)}
                   render={({ field }) => (
-                    <input type="date" {...field} className="input w-full" />
+                    <input
+                      type="date"
+                      {...field}
+                      className="input w-full h-10"
+                    />
                   )}
                 />
               </div>
@@ -303,7 +314,7 @@ const InvoiceForm: React.FC = () => {
                 </label>
                 <select
                   {...register("paymentTerms", { required: true })}
-                  className="input w-full"
+                  className="input w-full h-10"
                 >
                   <option value="10">Net 10 Days</option>
                   <option value="20">Net 20 Days</option>
@@ -325,52 +336,82 @@ const InvoiceForm: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
-            <h2 className="text-xl font-semibold mb-4">Item List</h2>
+          <div className="p-6 bg-white">
+            <h2 className="text-xl font-semibold mb-4">Items List</h2>
             {fields.map((item, index) => (
-              <div key={index} className="grid grid-cols-6 gap-2 mb-4">
-                <input
-                  {...register(`items.${index}.name`, { required: true })}
-                  placeholder="Item Name"
-                  className="input col-span-2"
-                />
-                <input
-                  type="number"
-                  {...register(`items.${index}.qty`, { required: true })}
-                  placeholder="Qty"
-                  className="input col-span-1"
-                />
-                <input
-                  type="number"
-                  {...register(`items.${index}.price`, { required: true })}
-                  placeholder="Price"
-                  className="input col-span-1"
-                />
-                <input
-                  type="number"
-                  value={calculateTotal(item.qty, item.price)}
-                  disabled
-                  className="input col-span-1"
-                />
-                <button type="button" onClick={() => remove(index)}>
-                  <DeleteIcon />
-                </button>
+              <div key={index} className="grid grid-cols-12 gap-4 mb-4">
+                <div className="col-span-5">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Item Name
+                  </label>
+                  <input
+                    {...register(`items.${index}.name`, { required: true })}
+                    placeholder="Item Name"
+                    className="input w-full"
+                  />
+                </div>
+
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Qty.
+                  </label>
+                  <input
+                    type="number"
+                    {...register(`items.${index}.qty`, { required: true })}
+                    placeholder="Qty"
+                    className="input w-full"
+                  />
+                </div>
+
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Price
+                  </label>
+                  <input
+                    type="number"
+                    {...register(`items.${index}.price`, { required: true })}
+                    placeholder="Price"
+                    className="input w-full"
+                  />
+                </div>
+
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Total
+                  </label>
+                  <input
+                    type="number"
+                    value={calculateTotal(item.qty, item.price)}
+                    disabled
+                    className="input w-full"
+                  />
+                </div>
+
+                <div className="col-span-1 flex items-end">
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="text-red-500 mb-2"
+                  >
+                    <DeleteIcon />
+                  </button>
+                </div>
               </div>
             ))}
             <button
               type="button"
               onClick={() => append({ name: "", qty: 1, price: 0 })}
-              className="btn btn-secondary"
+              className="bg-customPurple text-white w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg"
             >
-              <PlusIcon /> Add Item
+              <PlusIcon /> <span>Add New Item</span>
             </button>
           </div>
         </div>
 
         {/* Preview Section */}
-        <div className="card">
+        <div className="p-6 bg-customGray rounded-3xl border border-gray-300">
           <h2 className="text-xl font-semibold mb-4">Preview</h2>
-          <div className="card">
+          <div className="p-6 bg-white rounded-2xl border">
             <h3 className="text-lg font-semibold mb-2">New Invoice</h3>
             <p>Invoice Date: {watch("invoiceDate")}</p>
             <p>Payment Terms: Net {watch("paymentTerms")} Days</p>

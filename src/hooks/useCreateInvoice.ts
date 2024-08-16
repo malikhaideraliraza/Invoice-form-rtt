@@ -8,7 +8,7 @@ interface UseCreateInvoiceProps {
 }
 
 const useCreateInvoice = ({ resetForm }: UseCreateInvoiceProps) => {
-  const [createInvoice] = useMutation(CREATE_INVOICE);
+  const [createInvoice, { loading }] = useMutation(CREATE_INVOICE);
 
   const onSubmit = async (data: InvoiceFormData) => {
     const payload: InvoiceFormData = {
@@ -35,7 +35,7 @@ const useCreateInvoice = ({ resetForm }: UseCreateInvoiceProps) => {
     }
   };
 
-  return { onSubmit };
+  return { onSubmit, loading };
 };
 
 export default useCreateInvoice;

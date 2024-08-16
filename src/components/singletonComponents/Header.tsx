@@ -4,9 +4,10 @@ interface HeaderProps {
   title: string;
   subtitle: string;
   onReset: () => void;
+  saveBtnLoading: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle, onReset }) => {
+const Header: React.FC<HeaderProps> = ({ title, subtitle, onReset, saveBtnLoading }) => {
   return (
     <div className="flex justify-between items-center">
       <div>
@@ -23,8 +24,9 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, onReset }) => {
         </button>
 
         <button
+          disabled={saveBtnLoading}
           type="submit"
-          className="btn btn-primary !bg-[#7F56D9] !text-white !rounded-lg"
+          className={`btn btn-primary !bg-[#7F56D9] !text-white !rounded-lg ${saveBtnLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           Save
         </button>

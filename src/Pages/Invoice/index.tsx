@@ -24,7 +24,7 @@ const InvoiceForm: React.FC = () => {
   });
   const { handleSubmit, reset } = methods;
   const resetForm = () => reset(invoiceDefaultVals);
-  const { onSubmit } = useCreateInvoice({ resetForm });
+  const { onSubmit, loading } = useCreateInvoice({ resetForm });
 
   return (
     <FormProvider {...methods}>
@@ -34,6 +34,7 @@ const InvoiceForm: React.FC = () => {
           title="New Invoice"
           subtitle="Create new invoice for your customers"
           onReset={resetForm}
+          saveBtnLoading={loading}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

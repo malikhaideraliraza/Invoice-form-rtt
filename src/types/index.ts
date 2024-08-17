@@ -1,33 +1,22 @@
+import { z } from "zod";
+import { invoiceSchema } from "../validations";
+
 export type Item = {
   id?: string;
   name: string;
-  qty: number;
+  quantity: number;
   price: number;
+  total?: number;
 };
 
-export type InvoiceFormData = {
-  billingFromAttributes: {
-    companyName: string;
-    companyEmail: string;
-    billingFromAddressAttributes: {
-      streetAddress: string;
-      city: string;
-      country: string;
-      postalCode: string;
-    };
-  };
-  billingToAttributes: {
-    clientName: string;
-    clientEmail: string;
-    billingToAddressAttributes: {
-      streetAddress: string;
-      city: string;
-      country: string;
-      postalCode: string;
-    };
-  };
-  invoiceDate: string;
-  paymentTerms: string;
-  projectDescription: string;
-  items: Item[];
+export type InvoiceFormData = z.infer<typeof invoiceSchema>;
+
+export type Country = {
+  name: string;
+  native: string;
+  phone: string;
+  continent: string;
+  capital: string;
+  currency: string;
+  region: string;
 };

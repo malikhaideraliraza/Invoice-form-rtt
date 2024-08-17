@@ -19,3 +19,5 @@ export const getCountryName = (countryCode: string): string | undefined => {
   const country = countries[countryCode];
   return country ? country.name : undefined;
 };
+
+export const prepareItemString = (...items: string[]) => items.filter(s => Boolean(s)).join(", ");

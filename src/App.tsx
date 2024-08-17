@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //Pages
 import InvoicePage from './Pages/Invoice';
 
-{/* TODO: Some fine grained responsivnes */}
+// TODO: Some fine grained responsivnes
 const App: React.FC = () => {
   return (
     <div className="container mx-auto p-4">

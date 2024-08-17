@@ -6,7 +6,7 @@ interface InvoiceDetailsProps {
 }
 
 const InvoiceDetails: React.FC<InvoiceDetailsProps> = ({ watch }) => {
-  // Destructure values from watch
+
   const invoiceDate = watch("invoiceDate");
   const paymentTerms = watch("paymentTerms");
   const billingFrom = watch("billingFromAttributes") || {};
